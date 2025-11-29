@@ -2,13 +2,12 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { Client, Collection, GatewayIntentBits } from 'discord.js';
-import { loadConfig } from './utils/configLoader.js';
 import { startupChecks } from './utils/startupChecks.js';
+import config from './utils/config.js';
+import logger from './utils/logger.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-
-const config = loadConfig();
 
 // Disable this when you are comfortable with discordjs
 await startupChecks(config);
@@ -36,7 +35,7 @@ for (const folder of commandFolders) {
 			client.commands.set(command.data.name, command);
 		}
 		else {
-			console.log(`The command at ${filePath} is missing a required "data" or "execute" property.`);
+			logger.error(`The command at ${filePath} is missing a required "data" or "execute" property.`);
 		}
 	}
 }

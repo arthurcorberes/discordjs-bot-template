@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "dev": "nodemon",
-    "start": "node src/index.js",
+    "start": "node src/index.js prod",
     "lint": "eslint src/ --fix",
     "deploy:dev": "node src/tools/deploy-local-commands.js",
     "deploy:global": "node src/tools/deploy-global-commands.js"
@@ -23,6 +23,7 @@
   "homepage": "https://github.com/arthurcorberes/discordjs-bot-template#readme",
   "dependencies": {
     "discord.js": "^14.25.1",
+    "node-cron": "^4.2.1",
     "node-fetch": "^3.3.2"
   },
   "devDependencies": {

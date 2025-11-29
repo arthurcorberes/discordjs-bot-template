@@ -17,6 +17,10 @@ pids/
 # Env files
 .env
 
+# Config files
+config.*.json
+!config.example.json
+
 # OS / IDE files
 .DS_Store
 Thumbs.db

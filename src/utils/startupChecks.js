@@ -1,16 +1,17 @@
 import fetch from 'node-fetch';
+import logger from './logger.js';
 
 export async function startupChecks(config) {
-	const prefix = 'Startup checks | ';
-	console.log(prefix + 'Starting bot checks...\nDid you know that you can change the value of `ENV` in `.env` to switch between production and development tokens?');
+	const prefix = 'STARTUP CHECKS | ';
+	logger.info(prefix + 'Starting bot checks...');
 
 	if (!config.TOKEN) {
-		console.error(prefix + 'ERROR: Token is missing in your .env!');
+		logger.error(prefix + 'Token is missing in your config file!')
 		process.exit(1);
 	}
-	console.log(prefix + 'Token found');
+	logger.info(prefix + 'Token found');
 
-	console.log(prefix + `Environment: ${config.MODE.toUpperCase()}`);
+	logger.info(prefix + `Environment: ${process.argv[2]}`);
 
 	try {
 		const res = await fetch('https://discord.com/api/v10/users/@me', {
@@ -19,31 +20,30 @@ export async function startupChecks(config) {
 
 		if (res.status === 200) {
 			const botData = await res.json();
-			console.log(prefix + 'Token is valid!');
-			console.log(prefix + 'Bot info:');
-			console.log(`Username: ${botData.username}`);
-			console.log(`Discriminator: #${botData.discriminator}`);
-			console.log(`Bot ID: ${botData.id}`);
-			console.log(`Verified: ${botData.verified ? 'Yes' : 'No'}`);
+			logger.success(prefix + 'Token is valid!');
+			logger.info(prefix + 'Bot info:');
+			logger.info(prefix + `Username: ${botData.username}`);
+			logger.info(prefix + `Discriminator: #${botData.discriminator}`);
+			logger.info(prefix + `Bot ID: ${botData.id}`);
 		}
 		else if (res.status === 401) {
-			console.error(prefix + 'ERROR: Token is invalid (Unauthorized)');
+			logger.error(prefix + 'Token is invalid (Unauthorized)');
 			process.exit(1);
 		}
 		else {
-			console.warn(prefix + `WARNING: Unexpected Discord API response: ${res.status}`);
+			logger.warn(prefix + `Unexpected Discord API response: ${res.status}`);
 		}
 	}
 	catch (err) {
-		console.error(prefix + 'Error checking token:', err);
+		logger.error(prefix + 'Error checking token:', err);
 		process.exit(1);
 	}
 
 	if (config.MODE === 'prod') {
-		console.log(prefix + 'PRODUCTION mode detected! Waiting 10 seconds to confirm...');
-		await new Promise(resolve => setTimeout(resolve, 10000));
-		console.log(prefix + 'Continuing...');
+		logger.info(prefix + 'PRODUCTION mode detected! Waiting 5 seconds to confirm...');
+		await new Promise(resolve => setTimeout(resolve, 5_000));
+		logger.info(prefix + 'Continuing...');
 	}
 
-	console.log(prefix + 'All startup checks passed...');
+	logger.info(prefix + 'All startup checks passed...');
 }

@@ -2,5 +2,5 @@
   "watch": ["src"],
   "ext": "js,json",
   "ignore": ["node_modules", "logs"],
-  "exec": "node src/index.js"
+  "exec": "node src/index.js dev"
 }
