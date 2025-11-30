@@ -3,6 +3,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { REST, Routes } from 'discord.js';
 import { loadConfig } from '../utils/configLoader.js';
+import logger from '../utils/logger.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -23,7 +24,7 @@ for (const folder of commandFolders) {
 			commands.push(command.data.toJSON());
 		}
 		else {
-			console.log(`The command at ${filePath} is missing a required "data" or "execute" property.`);
+			logger.error(`The command at ${filePath} is missing a required "data" or "execute" property.`);
 		}
 	}
 }
@@ -32,13 +33,13 @@ const rest = new REST().setToken(config.TOKEN);
 
 (async () => {
 	try {
-		console.log(`Started refreshing ${commands.length} application (/) commands.`);
+		logger.info(`Started refreshing ${commands.length} application (/) commands.`);
 
 		const data = await rest.put(Routes.applicationGuildCommands(config.CLIENT_ID), { body: commands });
 
-		console.log(`Successfully reloaded ${data.length} application (/) commands.`);
+		logger.info(`Successfully reloaded ${data.length} application (/) commands.`);
 	}
 	catch (error) {
-		console.error(error);
+		logger.error(error);
 	}
 })();

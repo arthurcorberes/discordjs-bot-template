@@ -6,7 +6,7 @@ export async function startupChecks(config) {
 	logger.info(prefix + 'Starting bot checks...');
 
 	if (!config.TOKEN) {
-		logger.error(prefix + 'Token is missing in your config file!')
+		logger.error(prefix + 'Token is missing in your config file!');
 		process.exit(1);
 	}
 	logger.info(prefix + 'Token found');

@@ -1,7 +1,8 @@
 import { Events } from 'discord.js';
+import logger from '../utils/logger';
 
 export const name = Events.ClientReady;
 export const once = true;
 export function execute(client) {
-	console.log(`Ready! Logged in as ${client.user.tag}`);
+	logger.info(`Ready! Logged in as ${client.user.tag}`);
 }

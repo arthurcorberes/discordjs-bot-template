@@ -1,4 +1,5 @@
 import { Events, MessageFlags, Collection } from 'discord.js';
+import logger from '../utils/logger.js';
 
 export const name = Events.InteractionCreate;
 export async function execute(interaction) {
@@ -7,7 +8,7 @@ export async function execute(interaction) {
 	const command = interaction.client.commands.get(interaction.commandName);
 
 	if (!command) {
-		console.error(`No command matching ${interaction.commandName} was found.`);
+		logger.error(`No command matching ${interaction.commandName} was found.`);
 		return;
 	}
 
@@ -42,7 +43,7 @@ export async function execute(interaction) {
 		await command.execute(interaction);
 	}
 	catch (error) {
-		console.error(error);
+		logger.error(error);
 		if (interaction.replied || interaction.deferred) {
 			await interaction.followUp({
 				content: 'There was an error while executing this command!',
