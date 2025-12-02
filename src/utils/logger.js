@@ -7,7 +7,7 @@ import defaultConfig from './loggerConfig.js';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const LOG_DIR = path.resolve(__dirname, '..', defaultConfig.logs.logDir || 'logs');
+const LOG_DIR = path.resolve(__dirname, '..', defaultConfig.logs.logDir || '../logs');
 if (!fs.existsSync(LOG_DIR)) fs.mkdirSync(LOG_DIR, { recursive: true });
 
 const COLORS = {
