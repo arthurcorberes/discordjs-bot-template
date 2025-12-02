@@ -2,13 +2,11 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { REST, Routes } from 'discord.js';
-import { loadConfig } from '../utils/configLoader.js';
+import config from '../utils/config.js';
 import logger from '../utils/logger.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-
-const config = loadConfig();
 
 const commands = [];
 const foldersPath = path.join(__dirname, '..', 'commands');

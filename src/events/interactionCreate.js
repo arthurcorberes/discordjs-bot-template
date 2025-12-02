@@ -1,5 +1,6 @@
 import { Events, MessageFlags, Collection } from 'discord.js';
 import logger from '../utils/logger.js';
+import { t } from '../utils/i18n.js';
 
 export const name = Events.InteractionCreate;
 export async function execute(interaction) {
@@ -30,7 +31,10 @@ export async function execute(interaction) {
 		if (now < expirationTime) {
 			const expiredTimestamp = Math.round(expirationTime / 1_000);
 			return interaction.reply({
-				content: `Please wait, you are on a cooldown for \`${command.data.name}\`. You can use it again <t:${expiredTimestamp}:R>.`,
+				content: t("errors.cooldown", interaction.locale, {
+					command: command.data.name,
+					timestamp: `<t:${expiredTimestamp}:R>`
+				}),
 				flags: MessageFlags.Ephemeral,
 			});
 		}
