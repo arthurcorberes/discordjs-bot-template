@@ -44,6 +44,8 @@ function loadLocale(locale) {
 	return translations;
 }
 
+// Mini mapping of locales used in this project.
+// For the complete list of Discord locales and their ISO 639-1 equivalents, see localeMap.full.md
 const localeMap = { 'en-GB': 'en', 'en-US': 'en', 'en': 'en', 'fr': 'fr' };
 
 function getTranslation(key, locale = 'en') {

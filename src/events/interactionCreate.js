@@ -31,9 +31,9 @@ export async function execute(interaction) {
 		if (now < expirationTime) {
 			const expiredTimestamp = Math.round(expirationTime / 1_000);
 			return interaction.reply({
-				content: t("errors.cooldown", interaction.locale, {
+				content: t('errors.cooldown', interaction.locale, {
 					command: command.data.name,
-					timestamp: `<t:${expiredTimestamp}:R>`
+					timestamp: `<t:${expiredTimestamp}:R>`,
 				}),
 				flags: MessageFlags.Ephemeral,
 			});

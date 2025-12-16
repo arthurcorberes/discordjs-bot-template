@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import cron from 'node-cron';
 import { fileURLToPath } from 'url';
-import defaultConfig from './loggerConfig.js';
+import defaultConfig from '../config/loggerConfig.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -52,7 +52,7 @@ function createLogger(type) {
 		// Folders
 		try {
 			// YYYY-MM-DD
-			const day = new Date().toLocaleDateString(LANG, { timeZone: TIMEZONE }).replace(/\//g, '-');
+			const day = formatDateInTimezone(TIMEZONE);
 			const allFile = path.join(LOG_DIR, `${day}_all.txt`);
 			const typeFile = path.join(LOG_DIR, `all_${type.toLowerCase()}.txt`);
 
@@ -65,6 +65,26 @@ function createLogger(type) {
 			logger.error(e);
 		}
 	};
+}
+
+function formatDateInTimezone(timezone) {
+	const now = new Date();
+
+	const parts = new Intl.DateTimeFormat('en-CA', { // en-CA => YYYY-MM-DD
+		timeZone: timezone,
+		year: 'numeric',
+		month: '2-digit',
+		day: '2-digit',
+	}).formatToParts(now);
+
+	let year, month, day;
+	for (const part of parts) {
+		if (part.type === 'year') year = part.value;
+		else if (part.type === 'month') month = part.value;
+		else if (part.type === 'day') day = part.value;
+	}
+
+	return `${year}-${month}-${day}`;
 }
 
 const logger = {

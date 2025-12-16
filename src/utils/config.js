@@ -7,7 +7,7 @@ function loadConfig() {
 
 	if (!process.argv[2]) {
 		logger.warn(
-			`No environment argument provided, default usage: “${env}”.`,
+			`No environment argument provided, default usage: "${env}".`,
 		);
 	}
 

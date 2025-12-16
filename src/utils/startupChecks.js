@@ -9,8 +9,12 @@ export async function startupChecks(config) {
 		logger.error(prefix + 'Token is missing in your config file!');
 		process.exit(1);
 	}
-	logger.info(prefix + 'Token found');
+	else if (config.TOKEN === 'YOUR_BOT_TOKEN') {
+		logger.error(prefix + 'Make sure to replace the config.*.json values!');
+		process.exit(1);
+	}
 
+	logger.info(prefix + 'Token found');
 	logger.info(prefix + `Environment: ${process.argv[2]}`);
 
 	try {
@@ -37,12 +41,6 @@ export async function startupChecks(config) {
 	catch (err) {
 		logger.error(prefix + 'Error checking token:', err);
 		process.exit(1);
-	}
-
-	if (config.MODE === 'prod') {
-		logger.info(prefix + 'PRODUCTION mode detected! Waiting 5 seconds to confirm...');
-		await new Promise(resolve => setTimeout(resolve, 5_000));
-		logger.info(prefix + 'Continuing...');
 	}
 
 	logger.info(prefix + 'All startup checks passed...');

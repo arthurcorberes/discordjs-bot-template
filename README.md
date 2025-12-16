@@ -135,7 +135,7 @@ The template includes a translation system. Add locale files in `src/locales` an
 Use the built-in logger for consistent output:
 
 ```javascript
-import logger from '../utils/logger.js';
+import logger from './src/utils/logger.js';
 logger.info('Bot is starting...');
 logger.error('Something went wrong!');
 ```
@@ -154,11 +154,11 @@ Contributions, issues, and feature requests are welcome! Feel free to check the 
 
 1.  Fork the project
     
-2.  Create your feature branch (git checkout -b feature/AmazingFeature)
+2.  Create your feature branch (`git checkout -b feature/AmazingFeature`)
     
-3.  Commit your changes (git commit -m 'Add some AmazingFeature')
+3.  Commit your changes (`git commit -m 'Add some AmazingFeature'`)
     
-4.  Push to the branch (git push origin feature/AmazingFeature)
+4.  Push to the branch (`git push origin feature/AmazingFeature`)
     
 5.  Open a Pull Request
     
@@ -174,6 +174,4 @@ Acknowledgments
 Support
 ----------
 
-For support, please open an issue in the GitHub repository or contact the maintainers.
-
-Happy coding! 🚀
+For support, please open an issue in the GitHub repository.
